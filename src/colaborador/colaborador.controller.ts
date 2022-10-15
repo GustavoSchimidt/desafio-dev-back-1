@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Query } from '@nestjs/common';
 import { ColaboradorService } from './colaborador.service';
 import { ColaboradorCreateDto } from './dto/colaborador.dto';
 
@@ -8,19 +8,33 @@ export class ColaboradorController {
 
     @Post()
     @HttpCode(200)
-    async create (@Body() dto: ColaboradorCreateDto): Promise<any> {
+    async create (@Body() dto: ColaboradorCreateDto): Promise<ColaboradorCreateDto> {
         return await this.colaboradorService.saveColaborador(dto);
     }
 
-    // @Put()
-    // @HttpCode(200)
-    // async update (@Body() dto: ColaboradorCreateDto): Promise<any> {
-    //     return await this.colaboradorService.updateColaborador(dto);
-    // }
+    @Get()
+    @HttpCode(200)
+    async findAll (
+        @Query('nome') nome?: string,
+        @Query('setorId') setorId?: number,
+    ) {
+        return await this.colaboradorService.findAll(nome, setorId);
+    }
 
-    // @Get()
-    // @HttpCode(200)
-    // async findAll (@Body() dto: ColaboradorCreateDto): Promise<any> {
-    //     return await this.colaboradorService.findAll(dto);
-    // }
+    @Get('/:cpf')
+    @HttpCode(200)
+    async findByCpf (
+        @Param('cpf') cpf: string,
+    ) {
+        return await this.colaboradorService.findByCpf(cpf);
+    }
+
+
+    @Delete('/:cpf')
+    @HttpCode(200)
+    async delete (
+        @Param('cpf') cpf: string,
+    ) {
+        return await this.colaboradorService.delete(cpf);
+    }
 }

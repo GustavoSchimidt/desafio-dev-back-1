@@ -1,4 +1,3 @@
-
 export class ColaboradorCreateDto {
     cpf: string;
     nome: string;

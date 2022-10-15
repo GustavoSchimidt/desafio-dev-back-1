@@ -26,10 +26,7 @@ export class Colaborador implements IColaborador {
   data_nascimento: Date;
 
   @ManyToOne(() => Setor, {cascade: true})
-  @JoinColumn({ name: 'setorId', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'setor_id', referencedColumnName: 'id' })
   setor: Setor;
 
-  constructor(partial?: Partial<Colaborador>) {
-    if (partial) Object.assign(this, partial);
-  }
 }
